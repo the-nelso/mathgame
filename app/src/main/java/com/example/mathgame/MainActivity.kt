@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         val textViewResultado = findViewById<TextView>(R.id.textView5)
         val buttonSoma = findViewById<Button>(R.id.button)
         val layoutPrincipal = findViewById<View>(R.id.main)
-        val nextButton = findViewById<TextView>(R.id.buttonNext)
-        val notaFinal = findViewById<TextView>(R.id.nota)
+        val nextButton = findViewById<TextView>(R.id.passarButton)
+        val notaFinal = findViewById<TextView>(R.id.textView9)
         var contador = 0;
         var pontos = 0;
         textViewNum1.text = gerarNumeroAleatorio(0, 99).toString();
