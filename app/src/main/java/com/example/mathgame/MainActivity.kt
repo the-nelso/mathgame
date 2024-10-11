@@ -1,12 +1,16 @@
 package com.example.mathgame
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +27,10 @@ class MainActivity : AppCompatActivity() {
         val clientResult = findViewById<EditText>(R.id.editTextNumber).toString().toInt()
         val textViewResultado = findViewById<TextView>(R.id.textView5)
         val buttonSoma = findViewById<Button>(R.id.button)
-        layoutPrincipal = findViewById<View>(R.id.main)
+        val layoutPrincipal = findViewById<View>(R.id.main)
+
+        val notaFinal = findViewById<TextView>(R.id.nota)
+
 
         buttonSoma.setOnClickListener {
             val num1 = textViewNum1.text.toString().toInt()
@@ -45,4 +52,9 @@ class MainActivity : AppCompatActivity() {
     private fun gerarNumeroAleatorio(min: Int, max: Int): Int {
         return Random.nextInt(min, max + 1)
     }
+
+    private fun mostraNota(nota: Int): String {
+        return "Sua nota no jogo foi: $nota"
+    }
+
 }
