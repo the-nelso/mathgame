@@ -22,25 +22,48 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val textViewNum1  = findViewById<TextView>(R.id.textView)
-        val textViewNum2  = findViewById<TextView>(R.id.textView3)
+
+        val textViewNum1 = findViewById<TextView>(R.id.textView)
+        val textViewNum2 = findViewById<TextView>(R.id.textView3)
         val clientResult = findViewById<EditText>(R.id.editTextNumber).toString().toInt()
         val textViewResultado = findViewById<TextView>(R.id.textView5)
         val buttonSoma = findViewById<Button>(R.id.button)
         val layoutPrincipal = findViewById<View>(R.id.main)
-
+        val nextButton = findViewById<TextView>(R.id.buttonNext)
         val notaFinal = findViewById<TextView>(R.id.nota)
-
+        var contador = 0;
+        var pontos = 0;
+        textViewNum1.text = gerarNumeroAleatorio(0, 99).toString();
+        textViewNum2.text = gerarNumeroAleatorio(0, 99).toString();
 
         buttonSoma.setOnClickListener {
-            val num1 = textViewNum1.text.toString().toInt()
-            val num2 = textViewNum2.text.toString().toInt()
-            val resultado = somar(num1, num2)
-            textViewResultado.text = "$resultado"
-            if(clientResult == resultado) {
-                layoutPrincipal.setBackgroundColor(Color.GREEN)
-            } else {
-                layoutPrincipal.setBackgroundColor(Color.RED)
+            if(contador < 4){
+                val num1 = textViewNum1.text.toString().toInt()
+                val num2 = textViewNum2.text.toString().toInt()
+                val resultado = somar(num1, num2)
+                textViewResultado.text = "$resultado"
+                if(clientResult == resultado) {
+                    layoutPrincipal.setBackgroundColor(Color.GREEN)
+                    pontos += 20;
+                } else {
+                    layoutPrincipal.setBackgroundColor(Color.RED)
+                }
+                nextButton.text = "Próxima!"
+                // Espere por 3 segundos
+                textViewNum1.text = gerarNumeroAleatorio(0, 99).toString();
+                textViewNum2.text = gerarNumeroAleatorio(0, 99).toString();
+
+                contador++;
+            }else{
+                // Implementar
+                nextButton.text = "Finalizar Teste!"
+            }
+        }
+
+        nextButton.setOnClickListener {
+            if(contador < 4){
+                val totalDePontos = mostraNota(pontos)
+                notaFinal.text = totalDePontos
             }
         }
     }
