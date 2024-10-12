@@ -25,46 +25,67 @@ class MainActivity : AppCompatActivity() {
 
         val textViewNum1 = findViewById<TextView>(R.id.textView)
         val textViewNum2 = findViewById<TextView>(R.id.textView3)
-        val clientResult = findViewById<EditText>(R.id.editTextNumber).toString().toInt()
+        val clientResult = findViewById<EditText>(R.id.editTextNumber)
         val textViewResultado = findViewById<TextView>(R.id.textView5)
         val buttonSoma = findViewById<Button>(R.id.button)
         val layoutPrincipal = findViewById<View>(R.id.main)
         val nextButton = findViewById<TextView>(R.id.passarButton)
         val notaFinal = findViewById<TextView>(R.id.textView9)
+        val soma = findViewById<TextView>(R.id.textView2);
+        val igual = findViewById<TextView>(R.id.textView4);
         var contador = 0;
         var pontos = 0;
         textViewNum1.text = gerarNumeroAleatorio(0, 99).toString();
         textViewNum2.text = gerarNumeroAleatorio(0, 99).toString();
 
         buttonSoma.setOnClickListener {
-            if(contador < 4){
+            nextButton.visibility = View.VISIBLE;
+
+            if(contador < 5){
                 val num1 = textViewNum1.text.toString().toInt()
                 val num2 = textViewNum2.text.toString().toInt()
                 val resultado = somar(num1, num2)
                 textViewResultado.text = "$resultado"
-                if(clientResult == resultado) {
-                    layoutPrincipal.setBackgroundColor(Color.GREEN)
+                if(clientResult.text.toString() == resultado.toString()) {
+                    layoutPrincipal.setBackgroundColor(Color.rgb(35,196,35));
                     pontos += 20;
                 } else {
                     layoutPrincipal.setBackgroundColor(Color.RED)
                 }
                 nextButton.text = "Próxima!"
-                // Espere por 3 segundos
-                textViewNum1.text = gerarNumeroAleatorio(0, 99).toString();
-                textViewNum2.text = gerarNumeroAleatorio(0, 99).toString();
-
                 contador++;
             }else{
-                // Implementar
                 nextButton.text = "Finalizar Teste!"
             }
+
+            buttonSoma.visibility = View.INVISIBLE;
         }
 
         nextButton.setOnClickListener {
-            if(contador < 4){
+            if(contador == 5){
                 val totalDePontos = mostraNota(pontos)
                 notaFinal.text = totalDePontos
+                layoutPrincipal.setBackgroundColor(Color.BLACK);
+                buttonSoma.visibility = View.INVISIBLE;
+                notaFinal.visibility = View.VISIBLE;
+                nextButton.visibility = View.INVISIBLE;
+                textViewNum1.visibility = View.INVISIBLE;
+                textViewNum2.visibility = View.INVISIBLE;
+                clientResult.visibility = View.INVISIBLE;
+                soma.visibility = View.INVISIBLE;
+                igual.visibility = View.INVISIBLE;
+                textViewResultado.visibility = View.INVISIBLE;
+            }else{
+                layoutPrincipal.setBackgroundColor(Color.BLACK);
+                nextButton.visibility = View.INVISIBLE;
+                buttonSoma.visibility = View.VISIBLE;
+
+                textViewNum1.text = gerarNumeroAleatorio(0, 99).toString();
+                textViewNum2.text = gerarNumeroAleatorio(0, 99).toString();
             }
+
+            textViewResultado.text = "?";
+            clientResult.text = null;
         }
     }
 
